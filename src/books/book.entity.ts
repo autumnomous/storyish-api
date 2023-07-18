@@ -9,11 +9,6 @@ export class Book {
     @Column()
     title:string;
 
-    // have a separate table for creators to be 
-    // used across different media types
-    // @Column()
-    // author:string;
-
     @Column()
     isbn:string;
 }
