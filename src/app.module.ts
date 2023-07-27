@@ -3,15 +3,16 @@ import { AppController } from './app.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 import { CreatorsModule } from './creators/creators.module';
-import { Creator } from './creators/creator.entity';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'sqlite',
-    database: 'db.sqlite',
-    entities: [Creator],
-    synchronize: true // remove for production
-  }), CreatorsModule],
+    database: process.env.DATABASE_NAME,
+    entities: [__dirname + '/**/*.entity{.ts,.js}'],
+    synchronize: true, // remove for production
+    migrations: [__dirname + '/libs/shared/src/migrations/*{.ts,.js}'],
+  }), CreatorsModule, SharedModule],
   controllers: [AppController],
   providers: [AppService],
 })
