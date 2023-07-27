@@ -1,11 +1,11 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable} from 'typeorm';
-import { Creator } from 'src/creators/creator.entity';
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm';
+import { MediaToCreator } from './mediatocreator.entity';
 
 @Entity()
 export class Media {
     
     @PrimaryGeneratedColumn("uuid")
-    id: number;
+    id: string;
 
     @Column()
     title: string;
@@ -13,8 +13,13 @@ export class Media {
     @Column()
     alternateTitles: string[];
 
-    @ManyToMany(() => Creator, (creator) => creator.media,{cascade: true})
-    @JoinTable()
-    creators: Creator[];
+    @Column()
+    tags: string[];
+    
+    @Column()
+    synopsis: string;
+
+    @OneToMany(() => MediaToCreator, (mediaToCreator) => mediaToCreator.media)
+    mediaToCreators: MediaToCreator
 
 }
