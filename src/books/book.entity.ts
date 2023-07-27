@@ -1,14 +1,15 @@
 import { Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
+import { Media } from 'src/shared/media.entity';
 
 @Entity()
 export class Book {
     
-    @PrimaryGeneratedColumn()
-    id:number;
-
-    @Column()
-    title:string;
+    @PrimaryGeneratedColumn("uuid")
+    id:string;
 
     @Column()
     isbn:string;
+
+    @Column(() => Media)
+    media: Media
 }
