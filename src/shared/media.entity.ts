@@ -8,12 +8,15 @@ export class Media {
     id: string;
 
     @Column()
+    releaseDate: Date;
+    
+    @Column()
     title: string;
 
-    @Column()
+    @Column({type: 'simple-json'  })
     alternateTitles: string[];
 
-    @Column()
+    @Column({type: 'simple-json'  })
     tags: string[];
     
     @Column()
