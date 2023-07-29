@@ -1,4 +1,16 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Body, Post } from '@nestjs/common';
+import { GetBookDto } from './dtos/get-book.dto';
+import { CreateBookDto } from './dtos/create-book.dto';
+import { BooksService } from './books.service';
 
 @Controller('books')
-export class BooksController {}
+export class BooksController {
+
+    constructor(private readonly booksService: BooksService){}
+
+    @Post('/create')
+    createBook(@Body() body:CreateBookDto){
+        
+        
+    }
+}

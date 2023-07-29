@@ -12,4 +12,5 @@ export class Book {
 
     @Column(() => Media)
     media: Media
+
 }
