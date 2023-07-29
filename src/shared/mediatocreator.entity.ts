@@ -8,12 +8,6 @@ export class MediaToCreator {
     public id: string;
 
     @Column()
-    public mediaID: string;
-
-    @Column()
-    public creatorID: string;
-
-    @Column()
     public creatorTitle: string;
 
     @ManyToOne(() => Media, (media) => media.mediaToCreators)
