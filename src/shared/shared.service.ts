@@ -1,4 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Post, Body } from '@nestjs/common';
 
 @Injectable()
-export class SharedService {}
+export class SharedService {
+
+}
