@@ -10,8 +10,7 @@ export class OpenlibraryController {
 
     @Get("/search")
     search(@Body() body: SearchOpenLibraryDto){
-        console.log(body);
-        // this.openLibraryService.search(query["q"])
+        return this.openLibraryService.search(body.title, body.author, body.subject, body.place, body.person, body.language, body.publisher)
     }
 
 }
