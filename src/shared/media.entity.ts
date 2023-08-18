@@ -26,7 +26,7 @@ export class Media {
     })
     synopsis: string;
 
-    @OneToMany(() => MediaToCreator, (mediaToCreator) => mediaToCreator.media)
+    @OneToMany(() => MediaToCreator, (mediaToCreator) => mediaToCreator.media,{onDelete:"CASCADE", cascade:true})
     mediaToCreators: MediaToCreator
 
 }

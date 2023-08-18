@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, AfterInsert, AfterUpdate, After
 import { Media } from 'src/shared/media.entity';
 
 @Entity()
-export class Book {
+export class Book extends Media {
     
     @PrimaryGeneratedColumn("uuid")
     id:string;
@@ -12,21 +12,18 @@ export class Book {
     })
     isbn:string;
 
-    @Column(() => Media)
-    media: Media
-
     @AfterInsert()
-    logInsert(){
+    logInsert?(){
         console.log("inserted Book with id ", this.id);
     }
 
     @AfterUpdate()
-    logUpdate(){
+    logUpdate?(){
         console.log("updated Book with id ", this.id);
     }
     
     @AfterRemove()
-    logRemove(){
+    logRemove?(){
         console.log("removed Book with id ", this.id)
     }
 }

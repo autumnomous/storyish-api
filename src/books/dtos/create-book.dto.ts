@@ -1,6 +1,6 @@
-import {IsOptional, IsISBN, ValidateNested} from 'class-validator';
+import {IsDate, IsArray, IsString, IsOptional, IsISBN, ValidateNested} from 'class-validator';
 import {Type} from 'class-transformer';
-import { MediaDto } from 'src/shared/dtos/media.dto';
+import { MediaToCreatorDto } from 'src/shared/dtos/mediatocreator.dto';
 
 export class CreateBookDto{
 
@@ -8,7 +8,30 @@ export class CreateBookDto{
     @IsOptional()
     isbn:string;
 
-    @Type(()=>MediaDto)
+    @IsOptional()
+    id:string;
+
+    @IsString()
+    @IsOptional()
+    title: string;
+
+    @IsDate()
+    @IsOptional()
+    releaseDate: Date;
+
+    @IsArray()
+    @IsOptional()
+    alternateTitles: string[];
+
+    @IsArray()
+    @IsOptional()
+    tags: string[]
+
+    @IsString()
+    @IsOptional()
+    synopsis: string;
+
     @ValidateNested()
-    media: MediaDto
+    @Type(()=> MediaToCreatorDto)
+    mediaToCreators: MediaToCreatorDto;
 }

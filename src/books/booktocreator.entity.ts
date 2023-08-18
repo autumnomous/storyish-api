@@ -1,18 +1,17 @@
 import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Media } from "./media.entity";
 import { Creator } from "../creators/creator.entity";
 import { Book } from "src/books/book.entity";
 
 @Entity()
-export class MediaToCreator {
+export class BookToCreator {
     @PrimaryGeneratedColumn("uuid")
     public id: string;
 
-    @Column()
+    @Column({default:"author"})
     public creatorTitle: string;
 
-    @ManyToOne(() => Media, (media) => media.mediaToCreators)
-    public media: Media;
+    @ManyToOne(() => Book, (book) => book.mediaToCreators)
+    public book: Book;
 
     @ManyToOne(() => Creator, (creator) => creator.mediaToCreators)
     public creator: Creator;
