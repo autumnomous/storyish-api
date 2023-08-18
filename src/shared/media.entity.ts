@@ -7,19 +7,23 @@ export class Media {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     releaseDate: Date;
     
     @Column()
     title: string;
 
-    @Column({type: 'simple-json'  })
+    @Column({type: 'simple-json',nullable: true})
     alternateTitles: string[];
 
-    @Column({type: 'simple-json'  })
+    @Column({type: 'simple-json',nullable: true})
     tags: string[];
     
-    @Column()
+    @Column({
+        nullable: true
+    })
     synopsis: string;
 
     @OneToMany(() => MediaToCreator, (mediaToCreator) => mediaToCreator.media)
