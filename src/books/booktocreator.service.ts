@@ -17,4 +17,16 @@ export class BookToCreatorsService {
 
         return this.repository.manager.save(bookToCreator);
     }
+
+    findOne(title:string,creatorFirstName:string, creatorLastName:string){
+
+        return this.repository.manager.findOne(BookToCreator,
+            {relations:{book:true, creator:true},
+            where:{
+                book:{title}, 
+                creator:{firstName:creatorFirstName,lastName:creatorLastName}
+            }
+        })
+
+    }
 }

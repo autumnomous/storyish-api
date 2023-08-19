@@ -13,7 +13,12 @@ export class BooksController {
     async createBook(@Body() body:CreateBookDto){
 
         const creator = await this.creatorsService.getOrCreate(body.mediaToCreators.creator.firstName, body.mediaToCreators.creator.lastName)
-        this.booksService.getOrCreate(body, creator);
+        return this.booksService.getOrCreate(body, creator);
         
+    }
+
+    @Get()
+    findOne(@Body() body:GetBookDto){
+        return this.booksService.findOne(body.creatorFirstName, body.creatorLastName,body.title,body.isbn, body.id)
     }
 }

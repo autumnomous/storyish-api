@@ -25,14 +25,44 @@ export class BooksService {
         
     }
 
-    findOne(){
+    async findOne(creatorFirstName:string, creatorLastName:string, title?:string, isbn?:string, id?:string, ){
+       try {
 
+        if(title && creatorFirstName && creatorLastName ){
+            const bookToCreator = await this.bookToCreatorsService.findOne(title, creatorFirstName, creatorLastName);
+            
+            if(bookToCreator){
+                return this.repository.findOne({where:{id:bookToCreator.book.id}});
+            }
+
+            return null
+           
+        } else if(isbn){
+            return this.repository.findOne({where:{isbn}});
+        } else if (id){
+            return this.repository.findOne({where:{id}});
+        }
+        
+
+       } catch (error) {
+        console.log(error);
+        throw new InternalServerErrorException(error);
+       }
+       
+        return null;
     }
 
     findAll(){}
 
-    getOrCreate(attrs:Book, creator: Creator){
-        throw new NotImplementedException()
+    async getOrCreate(attrs:Book, creator: Creator){
+        const book = await this.findOne(creator.firstName, creator.lastName, attrs.title,attrs.isbn, attrs.id);
+
+        if(book !== null){
+            return book;
+        }
+
+        return this.create(attrs,creator);
+
     }
 
 }
