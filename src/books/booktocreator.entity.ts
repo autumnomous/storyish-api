@@ -10,9 +10,9 @@ export class BookToCreator {
     @Column({default:"author"})
     public creatorTitle: string;
 
-    @ManyToOne(() => Book, (book) => book.mediaToCreators)
+    @ManyToOne(() => Book, (book) => book.creators)
     public book: Book;
 
-    @ManyToOne(() => Creator, (creator) => creator.mediaToCreators)
+    @ManyToOne(() => Creator, (creator) => creator.books)
     public creator: Creator;
 }

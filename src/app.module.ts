@@ -12,7 +12,7 @@ import { OpenlibraryModule } from './openlibrary/openlibrary.module';
   imports: [ConfigModule.forRoot({isGlobal: true}),TypeOrmModule.forRoot({
     type: 'sqlite',
     database: __dirname + process.env.DATABASE_NAME,
-    entities: [__dirname + '/**/*.entity{.ts,.js}'],
+    entities: [__dirname + '/**/!(exclude)/*.entity{.ts,.js}'],
     synchronize: true, // remove for production
     migrations: [__dirname + '/libs/shared/src/migrations/*{.ts,.js}'],
   }), CreatorsModule, SharedModule,BooksModule, OpenlibraryModule],

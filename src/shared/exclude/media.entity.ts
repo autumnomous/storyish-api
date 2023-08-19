@@ -1,11 +1,7 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm';
-import { MediaToCreator } from './mediatocreator.entity';
+import {Entity, Column} from 'typeorm';
 
 @Entity()
 export class Media {
-    
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
 
     @Column({
         nullable: true,
@@ -25,8 +21,5 @@ export class Media {
         nullable: true
     })
     synopsis: string;
-
-    @OneToMany(() => MediaToCreator, (mediaToCreator) => mediaToCreator.media,{onDelete:"CASCADE", cascade:true})
-    mediaToCreators: MediaToCreator
 
 }

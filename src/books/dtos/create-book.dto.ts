@@ -1,6 +1,6 @@
 import {IsDate, IsArray, IsString, IsOptional, IsISBN, ValidateNested} from 'class-validator';
-import {Type} from 'class-transformer';
-import { MediaToCreatorDto } from 'src/shared/dtos/mediatocreator.dto';
+import {Type, Transform} from 'class-transformer';
+import { BookToCreatorDto } from './booktocreator.dto';
 
 export class CreateBookDto{
 
@@ -20,10 +20,12 @@ export class CreateBookDto{
     releaseDate: Date;
 
     @IsArray()
+    @IsString({each:true})
     @IsOptional()
     alternateTitles: string[];
 
     @IsArray()
+    @IsString({each:true})
     @IsOptional()
     tags: string[]
 
@@ -32,6 +34,6 @@ export class CreateBookDto{
     synopsis: string;
 
     @ValidateNested()
-    @Type(()=> MediaToCreatorDto)
-    mediaToCreators: MediaToCreatorDto;
+    @Type(()=> BookToCreatorDto)
+    creators: BookToCreatorDto;
 }

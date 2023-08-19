@@ -1,6 +1,6 @@
 import {IsString,IsOptional, ValidateNested} from 'class-validator';
 import {Type} from 'class-transformer';
-import { MediaToCreatorDto } from 'src/shared/dtos/mediatocreator.dto';
+import { BookToCreatorDto } from 'src/books/dtos/booktocreator.dto';
 
 export class CreatorDto{
 
@@ -14,7 +14,7 @@ export class CreatorDto{
     lastName:string;
 
     @ValidateNested()
-    @Type(()=> MediaToCreatorDto)
-    mediaToCreators: MediaToCreatorDto;
+    @Type(()=> BookToCreatorDto)
+    books: BookToCreatorDto;
 
 }

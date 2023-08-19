@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, AfterInsert, AfterUpdate, AfterRemove} from 'typeorm';
-import { Media } from 'src/shared/media.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany,AfterInsert, AfterUpdate, AfterRemove} from 'typeorm';
+import { Media } from 'src/shared/exclude/media.entity';
+import { BookToCreator } from './booktocreator.entity';
 
 @Entity()
 export class Book extends Media {
@@ -11,6 +12,9 @@ export class Book extends Media {
         nullable: true,
     })
     isbn:string;
+
+    @OneToMany(() => BookToCreator, (bookToCreator) => bookToCreator.book,{onDelete:"CASCADE", cascade:true})
+    creators: BookToCreator
 
     @AfterInsert()
     logInsert?(){

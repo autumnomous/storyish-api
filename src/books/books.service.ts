@@ -1,5 +1,5 @@
-import { Injectable, InternalServerErrorException, NotImplementedException } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Injectable, InternalServerErrorException} from '@nestjs/common';
+import { Repository, Like, ArrayContains, Raw} from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './book.entity';
 import { Creator } from 'src/creators/creator.entity';
@@ -52,7 +52,24 @@ export class BooksService {
         return null;
     }
 
-    findAll(){}
+    find(attrs:Partial<Book>,creator:Partial<Creator>, page:number=0, limit:number=10){
+
+        return this.repository.manager.find(Book,{skip:page, take:limit,where:[
+            {title:Like(attrs.title)},
+            {alternateTitles:Like(attrs.title)},
+            {alternateTitles:Raw((alias) => `${alias} IN (alternateTitles)`,{alternateTitles:attrs.alternateTitles})},
+            // {alternateTitles:ArrayContains(attrs.alternateTitles)},
+            {isbn:attrs.isbn},
+            {releaseDate:attrs.releaseDate},
+            // {tags:ArrayContains(attrs.tags)},
+            {synopsis:Like(attrs.synopsis)},
+            {creators:{creator:{firstName:creator.firstName}}},
+            {creators:{creator:{lastName:creator.lastName}}},
+            {creators:{creator:{firstName:creator.firstName, lastName:creator.lastName}}},
+            {id:attrs.id}
+
+        ]})
+    }
 
     async getOrCreate(attrs:Book, creator: Creator){
         const book = await this.findOne(creator.firstName, creator.lastName, attrs.title,attrs.isbn, attrs.id);

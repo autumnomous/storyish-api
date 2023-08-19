@@ -1,8 +1,9 @@
-import { Controller, Get, Body, Post } from '@nestjs/common';
+import { Controller, Get, Body, Post, Param, ParseIntPipe, ParseArrayPipe } from '@nestjs/common';
 import { GetBookDto } from './dtos/get-book.dto';
 import { CreateBookDto } from './dtos/create-book.dto';
 import { BooksService } from './books.service';
 import { CreatorsService } from '../creators/creators.service';
+import { SearchBookDto } from './dtos/search-book.dto';
 
 @Controller('books')
 export class BooksController {
@@ -11,8 +12,7 @@ export class BooksController {
 
     @Post('/create')
     async createBook(@Body() body:CreateBookDto){
-
-        const creator = await this.creatorsService.getOrCreate(body.mediaToCreators.creator.firstName, body.mediaToCreators.creator.lastName)
+        const creator = await this.creatorsService.getOrCreate(body.creators.creator.firstName, body.creators.creator.lastName)
         return this.booksService.getOrCreate(body, creator);
         
     }
@@ -20,5 +20,10 @@ export class BooksController {
     @Get()
     findOne(@Body() body:GetBookDto){
         return this.booksService.findOne(body.creatorFirstName, body.creatorLastName,body.title,body.isbn, body.id)
+    }
+
+    @Get("/search/:page")
+    find(@Body() body:SearchBookDto, @Param("page", ParseIntPipe) page:number){
+        return this.booksService.find(body,{firstName:body.creatorFirstName, lastName:body.creatorLastName}, page)
     }
 }
