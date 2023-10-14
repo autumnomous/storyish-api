@@ -1,17 +1,13 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, OneToMany } from "typeorm";
 import { Name } from "src/shared/name.entity";
-import { MediaToCreator } from "src/shared/mediatocreator.entity";
+import { BookToCreator } from "src/books/booktocreator.entity";
 
 @Entity()
-export class Creator {
+export class Creator extends Name {
     @PrimaryGeneratedColumn("uuid")
     public id: string;
-
-    @Column(() => Name)
-    public name: Name
-
-
-    @OneToMany(() => MediaToCreator, (mediaToCreator) => mediaToCreator.creator)
-    public mediaToCreators: MediaToCreator;
+    
+    @OneToMany(() => BookToCreator, (bookToCreator) => bookToCreator.creator,{onDelete:"CASCADE", cascade:true})
+    public books: BookToCreator;
 
 }

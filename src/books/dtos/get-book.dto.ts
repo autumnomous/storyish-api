@@ -1,4 +1,4 @@
-import { IsString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, IsISBN } from 'class-validator';
 
 export class GetBookDto{
 
@@ -12,6 +12,15 @@ export class GetBookDto{
 
     @IsString()
     @IsOptional()
-    author: string;
+    creatorFirstName: string;
+
+    @IsString()
+    @IsOptional()
+    creatorLastName: string;
+
+    @IsString()
+    @IsISBN()
+    @IsOptional()
+    isbn: string;
 
 }

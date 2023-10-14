@@ -9,7 +9,7 @@ export class OpenlibraryService {
         const query_parameters = {"title":title,"author":author, "subject":subject,"place":place, "person":person, "language":language,"publisher":publisher}
         
         function isDefined(value){
-            if(typeof value !== 'undefined'){
+            if(value !== undefined){
                 return true;
             }
 

@@ -3,7 +3,7 @@ import { SharedService } from './shared.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports:[],
+  imports:[TypeOrmModule.forFeature([])],
   providers: [SharedService]
 })
 export class SharedModule {}
