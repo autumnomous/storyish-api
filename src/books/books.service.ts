@@ -1,5 +1,5 @@
-import { Injectable, InternalServerErrorException} from '@nestjs/common';
-import { Repository, Like, ArrayContains, Raw} from 'typeorm';
+import { Injectable, InternalServerErrorException, NotFoundException} from '@nestjs/common';
+import { Repository, Like, Raw} from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './book.entity';
 import { Creator } from 'src/creators/creator.entity';
@@ -79,6 +79,16 @@ export class BooksService {
 
         return this.create(attrs,creator);
 
+    }
+
+    async remove(id: string){
+        const book = await this.findOne(null, null, null, null,id)
+
+        if(!book){
+            throw new NotFoundException("Book not found")
+        }
+
+        return this.repository.remove(book);
     }
 
 }
